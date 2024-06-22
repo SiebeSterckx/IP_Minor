@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <html xmlns:th="http://www.thymeleaf.org"></html>
+  <head th:replace="~{fragments/head::head(title='storage.update')}">
+</head>
+<body>
+  <header th:replace="~{fragments/header::header(current='overview-storage')}"></header>
+
+  <main>
+    <div class="container mt-3 p-4">
+      <h2 th:text="#{storage.update}"></h2>
+      <div th:if="${error}!=null" class="alert-danger">
+        <p th:text="#{${error}}"></p>
+      </div>
+      <div>
+        <form action="#" th:action="@{/storage/update/{id}(id=${storageDto.id})}" th:object="${storageDto}" method="post">
+
+          <div class="mb-3">
+            <label for="name" class="form-label" th:text="#{name}"></label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Name" class="form-control">
+            <p th:each="err:${#fields.errors('name')}" th:text="#{${err}}" class="text-danger"></p>
+          </div>
+          <div class="mb-3">
+            <label for="postal" class="form-label" th:text="#{postal}"></label>
+            <input type="text" th:field="*{postal}" id="postal" placeholder="Postal" class="form-control">
+            <p th:each="err:${#fields.errors('postal')}" th:text="#{${err}}" class="text-danger"></p>
+          </div>
+          <div class="mb-3">
+            <label for="surface" class="form-label" th:text="#{surface} + ' (m²)'"></label>
+            <input type="text" th:field="*{surface}" id="surface" placeholder="Surface" class="form-control">
+            <p th:each="err:${#fields.errors('surface')}" th:text="#{${err}}" class="text-danger"></p>
+          </div>
+          <div class="mb-3">
+            <label for="height" class="form-label" th:text="#{height} + ' (m)'"></label>
+            <input type="text" th:field="*{height}" id="height" placeholder="Height" class="form-control">
+            <p th:each="err:${#fields.errors('height')}" th:text="#{${err}}" class="text-danger"></p>
+          </div>
+
+          <div>
+            <td><input type="submit" th:value="#{confirm}" class="btn btn-success"></td>
+            <td><a th:href="@{/storage/overview/1}" class="btn btn-danger" th:text="#{cancel}"></a></td>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer th:replace="~{fragments/footer}"></footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script><!-- Third party plugin JS-->
+</body>
+</html>

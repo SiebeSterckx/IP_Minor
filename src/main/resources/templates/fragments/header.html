@@ -1,0 +1,91 @@
+<header>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <a href="/">
+                    <img src="/images/Logo.png" alt="Logo" style="height: 75px">
+                </a>
+            </div>
+            <!-- hamburger icon -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto" sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="storageDropdown" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" th:text="#{storage}">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="storageDropdown">
+                            <li th:classappend="${current == 'overview-storage' ? 'active' : ''}">
+                                <a class="dropdown-item" href="/storage/overview/1"
+                                   th:text="#{overview}"></a>
+                            </li>
+                            <li th:classappend="${current == 'add-storage' ? 'active' : ''}"
+                                sec:authorize="hasRole('ADMIN')">
+                                <a class="dropdown-item" href="/storage/add" th:text="#{add}"></a>
+                            </li>
+                            <li th:classappend="${current == 'add-storage' ? 'active' : ''}"
+                                sec:authorize="hasRole('ADMIN')">
+                                <a class="dropdown-item" href="/storage/sort/gesorteerd/1" th:text="#{gesorteerd}"></a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto" sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="regattaDropdown" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" th:text="#{regatta}">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="regattaDropdown">
+                            <li th:classappend="${current == 'overview-regatta' ? 'active' : ''}">
+                                <a class="dropdown-item" href="/regatta/overview/1" th:text="#{overview}"></a>
+                            </li>
+                            <li th:classappend="${current == 'add-regatta' ? 'active' : ''}"
+                                sec:authorize="hasRole('ADMIN')">
+                                <a class="dropdown-item" href="/regatta/add" th:text="#{add}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+                <!-- Languages -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="language" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" th:text="#{language}">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/language(ln=en)}" th:text="#{english}"></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/language(ln=nl)}" th:text="#{dutch}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Logout -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a sec:authorize="!isAuthenticated()" class="btn btn-primary" href="/login" id="loginbutton"
+                           role="button"
+                           aria-expanded="false" th:text="#{login}">
+                        </a>
+                        <a sec:authorize="isAuthenticated()" class="btn btn-danger" href="/logout" id="logoutButton" role="button"
+                           aria-expanded="false" th:text="#{logout}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+</header>
